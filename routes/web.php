@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +17,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('template/landing');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin/dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+// Route::get('/produk', function () {
+//     return view('admin/produk');
+// })->middleware(['auth'])->name('produk');
+
+// Route::get('/kategori', function () {
+//     return view('admin/kategori');
+// })->middleware(['auth'])->name('kategori');
+
+// Route::resource('/products','App\Http\Controllers\ProductController');
+
+Route::get('home', [HomeController::class,'index'])->middleware(['auth'])->name('home');
 require __DIR__.'/auth.php';
+
+Route::get('/produk',[ProductController::class,'index'])->name('produk');
+Route::get('/kategori',[CategoriesController::class,'index'])->name('kategori');
+Route::get('/tambahproduk',[ProductController::class,'tambahproduk'])->name('tambahproduk');
+Route::post('/tambahdata',[ProductController::class,'tambahdata'])->name('tambahdata');

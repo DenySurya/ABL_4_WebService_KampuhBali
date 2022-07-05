@@ -13,7 +13,7 @@ class ProductController extends Controller
         
         $product = DB::table('products')
             ->join('categories', 'products.id_kategori', '=', 'categories.id')
-            ->select('products.*', 'categories.nama')
+            ->select('products.*', 'categories.nama AS kategori')
             ->get();
         return response()->json([
             'message' => 'Success!',
@@ -40,7 +40,7 @@ class ProductController extends Controller
     {
         $validasi = $request->validate([
             'nama'=>'required',
-            'seller'=>'required',
+            // 'seller'=>'required',
             'id_kategori'=>'required',
             'deskripsi'=>'required',
             'harga'=>'required',
@@ -105,7 +105,7 @@ class ProductController extends Controller
 
         $request->validate([
             'nama'=>'required',
-            'seller'=>'required',
+            // 'seller'=>'required',
             'id_kategori'=>'required',
             'deskripsi'=>'required',
             'harga'=>'required',
@@ -114,7 +114,7 @@ class ProductController extends Controller
         ]);
 
         $product->nama = $request->nama;
-        $product->seller = $request->seller;
+        // $product->seller = $request->seller;
         $product->id_kategori = $request->id_kategori;
         $product->deskripsi = $request->deskripsi;
         $product->harga = $request->harga;
